@@ -276,7 +276,7 @@ const SCENE_LIST = {
     "d19in": "d19in",
     "e04out": "e04out",
     "e04out_left": "e04out_left",
-    "e04out_loop": "Unknown Dark Room",
+    "e04out_loop": "Unknown Dark Room (e04out_loop)",
     "e04out_right": "e04out_right",
     "e04_test1": "Test Room #1",
     "e05out": "e05out",
