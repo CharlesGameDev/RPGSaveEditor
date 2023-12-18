@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>RPG Save Editor</title>
+</head>
+<body>
+    <script src="scenes.js"></script>
+    <script defer src="index.js"></script>
+
+    <h1 contenteditable="true
+    ">Upload Your Save File:</h1>
+    <h4>Your save file should be called "SMR_Save_VerXXXXXXX"<br>Save JSON files are also accepted.</h4>
+    <input type="file" id="fileInput" name="filename" class="center-block">
+    <br>
+    <button class="center-block" onclick="javascript:submit_file()">Submit File</button>
+    <br>
+    <button id="saveFile" style="border-color: blue; visibility: hidden;" class="center-block" onclick="javascript:save_file()">Save File</button>
+    <br>
+    <button id="exportJSON" style="border-color: lime; visibility: hidden;" class="center-block" onclick="javascript:save_file_json()">Export JSON</button>
+    <br>
+    <div id="editing" class="center-div" style="visibility: hidden;">
+    </div>
+</body>
+</html>

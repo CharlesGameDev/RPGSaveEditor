@@ -1,0 +1,77 @@
+@font-face {
+    font-family: ninP3;
+    src: url(font/ninP3.otf);
+}
+
+body {
+    background-image: url("img/bg1.png");
+    background-size: 200px;
+    font-family: ninP3;
+    color: white;
+}
+
+.center-block {
+    margin: auto;
+    display: block;
+}
+
+.center-div {
+    text-align: center;
+}
+
+.center-div input {
+    display: inline-block;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+    color: lightgrey;
+}
+
+input {
+    font-family: ninP3;
+}
+
+#editing input {
+    font-family: ninP3;
+    float: left;
+    margin-left: 5px;
+}
+#editing select {
+    font-family: ninP3;
+    float: left;
+    margin-left: 5px;
+}
+#editing label {
+    float: left;
+    clear: left;
+    width: 50%;
+    text-align: right;
+    margin-right: 5px;
+}
+
+button {
+    color: white;
+    font-size: large;
+    font-family: ninP3;
+    background-color: #010F1E;
+    width: 200px;
+    height: 35px;
+    border-radius: 17.5px;
+    transition-duration: 0.2s;
+    border: 3px solid;
+    border-color: red;
+}
+
+button:hover {
+    background-color: #798187;
+}
+
+button:active {
+    transform: scale(1.1);
+    background-color: #b9c4cc;
+}
