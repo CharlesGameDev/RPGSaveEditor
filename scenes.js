@@ -80,7 +80,7 @@ const SCENE_LIST = {
     "d06out7": "d06out7",
     "d06out8": "d06out8",
     "d06out9": "d06out9",
-    "d07b1a": "d07b1a",
+    "d07b1a": "Pipe Vault - Entrance",
     "d07b1b": "d07b1b",
     "d07b2": "d07b2",
     "d07b3a": "d07b3a",
