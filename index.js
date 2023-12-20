@@ -5,6 +5,9 @@ const editing = document.getElementById("editing");
 
 let open_file = null;
 
+let SCENE_LIST;
+loadJSON("https://raw.githubusercontent.com/CharlesGameDev/RPGData/main/scenes.json", onLoadScenes)
+
 let values = {
     // "_language_id": "Language > dropdown > English,IDK",
     "_is_button_simple": "Simple Controls > bool",
@@ -72,85 +75,89 @@ let values = {
     "_add_boss_mininum_defeated_turn": "Add Boss Minimum Defeated Turn > integer",
 }
 
-Object.keys(values).forEach(key => {
-    const element = document.createElement("div");
+function onLoadScenes(scenes) {
+    SCENE_LIST = scenes;
 
-    const vals = values[key].split(" > ");
-    const val_name = vals[0];
-    const val_type = vals[1];
-
-    if (val_type == "header") {
-        element.appendChild(document.createElement("br"));
-        header = document.createElement("label");
-        header.innerText = `\n${val_name}\n\n`;
-        header.style.fontSize = "xx-large";
-        header.style.fontWeight = "bold";
-
-        element.appendChild(header);
-        editing.appendChild(element);
-        return;
-    }
-
-    const label = document.createElement("label");
-    label.innerText = `${val_name}: `;
-    label.setAttribute("for", key);
-    let input = null;
-
-    if (val_type == "dropdown") {
-        input = document.createElement("select");
-        const values = vals[2].split(",");
-        values.forEach(value => {
-            const option = document.createElement("option");
-            option.innerText = value;
-
-            input.appendChild(option);
-        });
-
-        input.onchange = () => {
-            set_value(input, input.selectedIndex);
-        };
-    } else if (val_type == "scenelist") {
-        input = document.createElement("select");
-        const values = Object.values(SCENE_LIST);
-        values.forEach(value => {
-            const option = document.createElement("option");
-            option.innerText = value;
-
-            input.appendChild(option);
-        });
-
-        input.onchange = () => {
-            set_value(input);
-        };
-    } else {
-        input = document.createElement("input");
-        switch (val_type) {
-            case "integer":
-                input.type = "number";
-                input.pattern = "integer";
-                break;
-            case "float":
-                input.type = "number";
-                break;
-            case "bool":
-                input.type = "checkbox";
-                break;
-            case "string":
-                input.type = "text";
-                break;
+    Object.keys(values).forEach(key => {
+        const element = document.createElement("div");
+    
+        const vals = values[key].split(" > ");
+        const val_name = vals[0];
+        const val_type = vals[1];
+    
+        if (val_type == "header") {
+            element.appendChild(document.createElement("br"));
+            header = document.createElement("label");
+            header.innerText = `\n${val_name}\n\n`;
+            header.style.fontSize = "xx-large";
+            header.style.fontWeight = "bold";
+    
+            element.appendChild(header);
+            editing.appendChild(element);
+            return;
         }
     
-        input.addEventListener("input", () => {
-            set_value(input);
-        });
-    }
-
-    input.id = key;
-    element.appendChild(label);
-    element.appendChild(input);
-
-    editing.appendChild(element);
-})
+        const label = document.createElement("label");
+        label.innerText = `${val_name}: `;
+        label.setAttribute("for", key);
+        let input = null;
+    
+        if (val_type == "dropdown") {
+            input = document.createElement("select");
+            const values = vals[2].split(",");
+            values.forEach(value => {
+                const option = document.createElement("option");
+                option.innerText = value;
+    
+                input.appendChild(option);
+            });
+    
+            input.onchange = () => {
+                set_value(input, input.selectedIndex);
+            };
+        } else if (val_type == "scenelist") {
+            input = document.createElement("select");
+            const values = Object.values(SCENE_LIST);
+            values.forEach(value => {
+                const option = document.createElement("option");
+                option.innerText = value;
+    
+                input.appendChild(option);
+            });
+    
+            input.onchange = () => {
+                set_value(input);
+            };
+        } else {
+            input = document.createElement("input");
+            switch (val_type) {
+                case "integer":
+                    input.type = "number";
+                    input.pattern = "integer";
+                    break;
+                case "float":
+                    input.type = "number";
+                    break;
+                case "bool":
+                    input.type = "checkbox";
+                    break;
+                case "string":
+                    input.type = "text";
+                    break;
+            }
+        
+            input.addEventListener("input", () => {
+                set_value(input);
+            });
+        }
+    
+        input.id = key;
+        element.appendChild(label);
+        element.appendChild(input);
+    
+        editing.appendChild(element);
+    })
+}
 
 function submit_file() {
     if (fileInput.files.length == 0) return;
@@ -256,4 +263,20 @@ function download(data, filename, type) {
             window.URL.revokeObjectURL(url);  
         }, 0); 
     }
+}
+
+function loadJSON(path, success) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            success(JSON.parse(xhr.responseText));
+        }
+        else {
+            console.error(xhr);
+        }
+      }
+    };
+    xhr.open('GET', path, true);
+    xhr.send();
 }
